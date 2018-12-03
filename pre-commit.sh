@@ -11,14 +11,12 @@ go test ./... || exit
 echo "Building application and starting..."
 go build && ./portfold > /dev/null 2> /dev/null &
 
-echo "Waiting for server to startup... 10 seconds..."
-sleep 7
-echo "3..."
-sleep 1
-echo "2..."
-sleep 1
-echo "1..."
-sleep 1
+echo "Waiting for server to startup..."
+for i in {5..1}
+do
+   echo "$i..."
+   sleep 1
+done
 
 echo "Running integration tests..."
 
