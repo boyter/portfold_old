@@ -14,7 +14,9 @@ go build && ./portfold > /dev/null 2> /dev/null &
 echo "Waiting for server to startup..."
 while :
 do
-        curl -s -m 1  "http://localhost:8080/health-check/" 2>&1 | grep "health check"
+    # -s is silent mode and -m sets the connection timeout to 1 second
+    curl -s -m 1  "http://localhost:8080/health-check/" 2>&1 | grep "health check"
+    # $? is the exit value of the last command and if it passes break out of the loop
     [[ $? ]] && break
 done
 
