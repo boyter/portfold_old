@@ -18,11 +18,10 @@ go test ./... || exit
 echo "Building application and starting..."
 # Build the application and start it with all output redirected to /dev/null so we don't see it and
 # then use & to fork the process off into the background.
-# It is technically possible for this
 go build && ./portfold > /dev/null 2> /dev/null &
 
 echo "Waiting for server to startup..."
-# Loop forever waiting for the application to run
+# Loop waiting for the application to run or until a timeout is reached
 cnt=1;
 while :
 do
@@ -51,10 +50,12 @@ done
 
 echo "Running integration tests..."
 
+# Important to have -count=1 so the tests always run at least once
+# We also set -tags to run integration tests
 if go test -count=1 -tags=integration ./... ; then
 	echo -e "${GREEN}--------- ALL TESTS PASSED ---------"
 else
-	exit
+    echo -e "${RED}--------- TESTS FAILED ---------"
 fi
 
 echo -e "${NC}"
