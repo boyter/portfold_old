@@ -18,3 +18,7 @@ func home(w http.ResponseWriter, r *http.Request) {
 func help(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte("Help"))
 }
+
+func healthCheck(w http.ResponseWriter, r *http.Request) {
+	_, _ = w.Write([]byte("health check"))
+}

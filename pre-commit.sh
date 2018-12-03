@@ -12,10 +12,10 @@ echo "Building application and starting..."
 go build && ./portfold > /dev/null 2> /dev/null &
 
 echo "Waiting for server to startup..."
-for i in {5..1}
+while :
 do
-   echo "$i..."
-   sleep 1
+        curl -s -m 1  "http://localhost:8080/health-check/" 2>&1 | grep "health check"
+    [[ $? ]] && break
 done
 
 echo "Running integration tests..."
