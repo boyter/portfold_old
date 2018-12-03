@@ -27,7 +27,7 @@ while :
 do
     echo "Attempt $cnt..."
     # -s is silent mode and -m sets the connection timeout to 1 second
-    curl -s -m 1  "http://localhost:8080/health-check/" > /dev/null 2>&1
+    curl -s -m 1 "http://localhost:8080/health-check/" > /dev/null 2>&1
 
     # $? is the exit value of the last command and if it passes break out of the loop
     # NB if you put any command above this one this will then always pass
