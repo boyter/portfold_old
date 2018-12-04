@@ -26,3 +26,11 @@ func TestRoute200(t *testing.T) {
 		}
 	}
 }
+
+func TestRoute404(t *testing.T) {
+	resp, _ := http.Get(mainRoute + "something/that/should/not/exist/")
+
+	if resp.StatusCode != 404 {
+		t.Error("Expected 404 response")
+	}
+}
