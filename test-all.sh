@@ -53,8 +53,10 @@ echo "Running integration tests..."
 # Important to have -count=1 so the tests always run at least once
 # We also set -tags to run integration tests
 if go test -count=1 -tags=integration ./... ; then
+    echo -e ""
 	echo -e "${GREEN}--------- ALL TESTS PASSED ---------"
 else
+    echo -e ""
     echo -e "${RED}--------- TESTS FAILED ---------"
 fi
 
