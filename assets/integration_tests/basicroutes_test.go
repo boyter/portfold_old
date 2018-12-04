@@ -27,10 +27,18 @@ func TestRoute200(t *testing.T) {
 	}
 }
 
-func TestRoute404(t *testing.T) {
-	resp, _ := http.Get(mainRoute + "something/that/should/not/exist/")
+var routes404 = []string{
+	"something/that/should/not/exist/",
+	"static/css/notreal.css",
+	"static/img/random_image.jpg",
+}
 
-	if resp.StatusCode != 404 {
-		t.Error("Expected 404 response")
+func TestRoute404(t *testing.T) {
+	for _, route := range routes404 {
+		resp, _ := http.Get(mainRoute + route)
+
+		if resp.StatusCode != 404 {
+			t.Error("Expected 404 response for", route)
+		}
 	}
 }
