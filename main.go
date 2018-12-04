@@ -29,9 +29,9 @@ func main() {
 	// It is good practice to create a new one to avoid the default global one
 	// being polluted by imports
 	mux := http.NewServeMux()
-	mux.HandleFunc("/", app.home)
-	mux.HandleFunc("/help/", app.help)
-	mux.HandleFunc("/health-check/", app.healthCheck)
+	mux.Handle("/", http.HandlerFunc(app.home))
+	mux.Handle("/help/", http.HandlerFunc(app.help))
+	mux.Handle("/health-check/", http.HandlerFunc(app.healthCheck))
 
 	fileServer := http.FileServer(http.Dir("./assets/ui/static/"))
 	mux.Handle("/static/", http.StripPrefix("/static", fileServer))

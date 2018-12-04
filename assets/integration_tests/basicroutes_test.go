@@ -14,6 +14,7 @@ var routes200 = []string{
 	"health-check/",
 	"static/",
 	"static/css/main.css",
+	"static/img/favicon.ico",
 }
 
 func TestRoute200(t *testing.T) {
