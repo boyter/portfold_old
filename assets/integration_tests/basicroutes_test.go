@@ -7,18 +7,21 @@ import (
 	"testing"
 )
 
-func TestBaseRouteGet200(t *testing.T) {
-	resp, _ := http.Get("http://localhost:8080/")
 
-	if resp.StatusCode != 200 {
-		t.Error("Expected 200 response")
-	}
+var mainRoute = "http://localhost:8080/"
+var routes200 = []string{
+	"",
+	"health-check/",
+	"static/",
+	"static/css/main.css",
 }
 
-func TestHealthCheckGet200(t *testing.T) {
-	resp, _ := http.Get("http://localhost:8080/health-check/")
+func TestRoute200(t *testing.T) {
+	for _, route := range routes200 {
+		resp, _ := http.Get(mainRoute + route)
 
-	if resp.StatusCode != 200 {
-		t.Error("Expected 200 response")
+		if resp.StatusCode != 200 {
+			t.Error("Expected 200 response for", route)
+		}
 	}
 }

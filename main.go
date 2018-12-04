@@ -33,6 +33,9 @@ func main() {
 	mux.HandleFunc("/help/", app.help)
 	mux.HandleFunc("/health-check/", app.healthCheck)
 
+	fileServer := http.FileServer(http.Dir("./assets/ui/static/"))
+	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
+
 	// Use the http.ListenAndServe() function to start a new web server. We pass in
 	// two parameters: the TCP network address to listen on (in this case ":8080")
 	// and the servemux we just created. If http.ListenAndServe() returns an error
