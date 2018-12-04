@@ -6,7 +6,7 @@ import (
 
 // Define a home handler function which writes a byte slice containing
 // "Hello from Portfold" as the response body.
-func home(w http.ResponseWriter, r *http.Request) {
+func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
@@ -15,10 +15,10 @@ func home(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte("Hello from Portfold"))
 }
 
-func help(w http.ResponseWriter, r *http.Request) {
+func (app *application) help(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte("Help"))
 }
 
-func healthCheck(w http.ResponseWriter, r *http.Request) {
+func (app *application) healthCheck(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte("health check"))
 }

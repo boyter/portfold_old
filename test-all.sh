@@ -32,7 +32,7 @@ do
     # $? is the exit value of the last command and if it passes break out of the loop
     # NB if you put any command above this one this will then always pass
     if [[ $? -eq 0 ]]; then
-    echo -e "Server has finished startup process commencing integration tests"
+    echo -e "Server has finished startup process; commencing integration tests"
         break
     fi
 
