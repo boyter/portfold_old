@@ -15,10 +15,10 @@ type application struct {
 }
 
 func main() {
-
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
-	// Initialize a new instance of application containing the dependencies.
+
+	// Initialize a new instance of application containing dependencies.
 	app := application{
 		errorLog: errorLog,
 		infoLog:  infoLog,
