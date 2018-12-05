@@ -1,10 +1,9 @@
 package main
 
 import (
+	"boyter/portfold/data"
 	"boyter/portfold/data/mysql"
 	"boyter/portfold/handlers"
-	"database/sql"
-	_ "github.com/go-sql-driver/mysql"
 	"log"
 	"net/http"
 	"os"
@@ -14,8 +13,7 @@ func main() {
 	infoLog := log.New(os.Stdout, "INFO\t", log.Ldate|log.Ltime)
 	errorLog := log.New(os.Stderr, "ERROR\t", log.Ldate|log.Ltime|log.Lshortfile)
 
-	// Connect to the database
-	db, err := openDb("root:@tcp(localhost:3306)/portfold?autocommit=true")
+	db, err := data.ConnectDb()
 	if err != nil {
 		errorLog.Fatal(err)
 	}
@@ -41,21 +39,4 @@ func main() {
 	infoLog.Println("Starting server on :8080")
 	err = srv.ListenAndServe()
 	errorLog.Fatal(err)
-}
-
-func openDb(dsn string) (*sql.DB, error) {
-	db, err := sql.Open("mysql", dsn)
-
-	if err != nil {
-		return nil, err
-	}
-
-	if err = db.Ping(); err != nil {
-		return nil, err
-	}
-
-	db.SetMaxOpenConns(50)
-	db.SetMaxIdleConns(5)
-
-	return db, nil
 }
