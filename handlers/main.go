@@ -1,13 +1,39 @@
-package main
+package handlers
 
 import (
 	"html/template"
+	"log"
 	"net/http"
 )
 
+// Define an application struct to hold the application-wide dependencies for the
+// web application. For now we'll only include fields for the two custom loggers, but
+// we'll add more to it as the build progresses.
+type Application struct {
+	ErrorLog *log.Logger
+	InfoLog  *log.Logger
+}
+
+func (app *Application) Routes() *http.ServeMux {
+	// Use the http.NewServeMux() function to initialize a new servemux, then
+	// register the home function as the handler for the "/" URL pattern.
+	// It is good practice to create a new one to avoid the default global one
+	// being polluted by imports
+	mux := http.NewServeMux()
+	mux.Handle("/", http.HandlerFunc(app.Home))
+	mux.Handle("/help/", http.HandlerFunc(app.Help))
+	mux.Handle("/health-check/", http.HandlerFunc(app.HealthCheck))
+
+	// Setup to serve files from the supplied directory
+	fileServer := http.FileServer(http.Dir("./assets/ui/static/"))
+	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
+
+	return mux
+}
+
 // Define a home handler function which writes a byte slice containing
 // "Hello from Portfold" as the response body.
-func (app *application) home(w http.ResponseWriter, r *http.Request) {
+func (app *Application) Home(w http.ResponseWriter, r *http.Request) {
 	if r.URL.Path != "/" {
 		http.NotFound(w, r)
 		return
@@ -29,7 +55,7 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 
 	ts, err := template.ParseFiles(files...)
 	if err != nil {
-		app.errorLog.Println(err.Error())
+		app.ErrorLog.Println(err.Error())
 		http.Error(w, "Internal Server Error", 500)
 		return
 	}
@@ -38,15 +64,15 @@ func (app *application) home(w http.ResponseWriter, r *http.Request) {
 	// dynamic data that we want to pass in, which for now we'll leave as nil.
 	err = ts.Execute(w, nil)
 	if err != nil {
-		app.errorLog.Println(err.Error())
+		app.ErrorLog.Println(err.Error())
 		http.Error(w, "Internal Server Error", 500)
 	}
 }
 
-func (app *application) help(w http.ResponseWriter, r *http.Request) {
+func (app *Application) Help(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte("Help"))
 }
 
-func (app *application) healthCheck(w http.ResponseWriter, r *http.Request) {
+func (app *Application) HealthCheck(w http.ResponseWriter, r *http.Request) {
 	_, _ = w.Write([]byte("health check"))
 }

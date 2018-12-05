@@ -1,1 +1,1 @@
-module github.com/boyter/portfold
+module boyter/portfold

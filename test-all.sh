@@ -60,5 +60,7 @@ else
     echo -e "${RED}--------- TESTS FAILED ---------"
 fi
 
+# Reset the colour back to nothing
 echo -e "${NC}"
+# Clean up the process if we can to avoid issues and conflicts
 pkill portfold
