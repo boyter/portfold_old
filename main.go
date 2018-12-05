@@ -1,7 +1,7 @@
 package main
 
 import (
-	"boyter/portfold/data"
+	"boyter/portfold/data/mysql"
 	"boyter/portfold/handlers"
 	"database/sql"
 	_ "github.com/go-sql-driver/mysql"
@@ -25,7 +25,7 @@ func main() {
 	app := handlers.Application{
 		ErrorLog:     errorLog,
 		InfoLog:      infoLog,
-		ProjectModel: &data.ProjectModel{DB: db},
+		ProjectModel: &mysql.ProjectModel{DB: db},
 	}
 
 	srv := &http.Server{

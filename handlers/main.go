@@ -1,7 +1,7 @@
 package handlers
 
 import (
-	"boyter/portfold/data"
+	"boyter/portfold/data/mysql"
 	"html/template"
 	"log"
 	"net/http"
@@ -13,7 +13,7 @@ import (
 type Application struct {
 	ErrorLog     *log.Logger
 	InfoLog      *log.Logger
-	ProjectModel *data.ProjectModel
+	ProjectModel *mysql.ProjectModel
 }
 
 func (app *Application) Routes() *http.ServeMux {
