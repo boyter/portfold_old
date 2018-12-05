@@ -54,5 +54,8 @@ func openDb(dsn string) (*sql.DB, error) {
 		return nil, err
 	}
 
+	db.SetMaxOpenConns(50)
+	db.SetMaxIdleConns(5)
+
 	return db, nil
 }
