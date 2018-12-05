@@ -8,7 +8,13 @@ import (
 	"testing"
 )
 
-func db(t *testing.T) *sql.DB {
+var db *sql.DB = nil
+
+func connect(t *testing.T) *sql.DB {
+	if db != nil {
+		return db
+	}
+
 	db, err := data.ConnectDb()
 	if err != nil {
 		t.Error("Unable to connect to DB", err.Error())
@@ -18,6 +24,6 @@ func db(t *testing.T) *sql.DB {
 }
 
 func TestGet(t *testing.T) {
-	project := ProjectModel{DB: db(t)}
+	project := ProjectModel{DB: connect(t)}
 	project.Get(1)
 }

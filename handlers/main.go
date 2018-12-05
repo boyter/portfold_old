@@ -2,6 +2,7 @@ package handlers
 
 import (
 	"boyter/portfold/data/mysql"
+	"github.com/gorilla/mux"
 	"html/template"
 	"log"
 	"net/http"
@@ -16,21 +17,21 @@ type Application struct {
 	ProjectModel *mysql.ProjectModel
 }
 
-func (app *Application) Routes() *http.ServeMux {
+func (app *Application) Routes() *mux.Router {
 	// Use the http.NewServeMux() function to initialize a new servemux, then
 	// register the home function as the handler for the "/" URL pattern.
 	// It is good practice to create a new one to avoid the default global one
 	// being polluted by imports
-	mux := http.NewServeMux()
-	mux.Handle("/", http.HandlerFunc(app.Home))
-	mux.Handle("/help/", http.HandlerFunc(app.Help))
-	mux.Handle("/health-check/", http.HandlerFunc(app.HealthCheck))
+	router := mux.NewRouter()
+	router.Handle("/", http.HandlerFunc(app.Home))
+	router.Handle("/help/", http.HandlerFunc(app.Help))
+	router.Handle("/health-check/", http.HandlerFunc(app.HealthCheck))
 
 	// Setup to serve files from the supplied directory
 	fileServer := http.FileServer(http.Dir("./assets/ui/static/"))
-	mux.Handle("/static/", http.StripPrefix("/static", fileServer))
+	router.PathPrefix("/static/").Handler(http.StripPrefix("/static", fileServer))
 
-	return mux
+	return router
 }
 
 // Define a home handler function which writes a byte slice containing
