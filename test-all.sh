@@ -39,7 +39,7 @@ do
     # After 9 attempts exit the loop
     if [[ cnt -eq 10 ]]; then
     echo
-        echo -e "${RED}Server has not started expect integration tests to fail"
+        echo -e "${RED}Server did not finish startup process; expect integration tests to fail"
         echo -e "${NC}"
         break
     fi
