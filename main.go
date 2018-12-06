@@ -4,9 +4,11 @@ import (
 	"boyter/portfold/data"
 	"boyter/portfold/data/mysql"
 	"boyter/portfold/handlers"
+	"github.com/golangcollege/sessions"
 	"log"
 	"net/http"
 	"os"
+	"time"
 )
 
 func main() {
@@ -19,11 +21,15 @@ func main() {
 	}
 	defer db.Close()
 
+	session := sessions.New([]byte(""))
+	session.Lifetime = 12 * time.Hour
+
 	// Initialize a new instance of application containing dependencies.
 	app := handlers.Application{
 		ErrorLog:     errorLog,
 		InfoLog:      infoLog,
 		ProjectModel: &mysql.ProjectModel{DB: db},
+		Session:      session,
 	}
 
 	srv := &http.Server{

@@ -1,6 +1,15 @@
 # github.com/go-sql-driver/mysql v1.4.1
 github.com/go-sql-driver/mysql
+# github.com/golangcollege/sessions v1.0.1
+github.com/golangcollege/sessions
+# github.com/gorilla/context v1.1.1
+github.com/gorilla/context
 # github.com/gorilla/mux v1.6.2
 github.com/gorilla/mux
+# golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9
+golang.org/x/crypto/nacl/secretbox
+golang.org/x/crypto/internal/subtle
+golang.org/x/crypto/poly1305
+golang.org/x/crypto/salsa20/salsa
 # google.golang.org/appengine v1.3.0
 google.golang.org/appengine/cloudsql

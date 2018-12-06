@@ -2,6 +2,8 @@ package handlers
 
 import (
 	"boyter/portfold/data/mysql"
+	"boyter/portfold/forms"
+	"github.com/golangcollege/sessions"
 	"github.com/gorilla/mux"
 	"html/template"
 	"log"
@@ -15,6 +17,7 @@ type Application struct {
 	ErrorLog     *log.Logger
 	InfoLog      *log.Logger
 	ProjectModel *mysql.ProjectModel
+	Session      *sessions.Session
 }
 
 func (app *Application) Routes() *mux.Router {
@@ -43,6 +46,14 @@ func (app *Application) LoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Application) LoginUser(w http.ResponseWriter, r *http.Request) {
+	form := forms.New(r.PostForm)
+
+	form.Required("username", "password")
+
+	if !form.Valid() {
+	}
+
+	w.Write([]byte("Attempt to login here"))
 }
 
 // Define a home handler function which writes a byte slice containing
