@@ -6,6 +6,8 @@ github.com/golangcollege/sessions
 github.com/gorilla/context
 # github.com/gorilla/mux v1.6.2
 github.com/gorilla/mux
+# github.com/justinas/alice v0.0.0-20171023064455-03f45bd4b7da
+github.com/justinas/alice
 # golang.org/x/crypto v0.0.0-20181203042331-505ab145d0a9
 golang.org/x/crypto/nacl/secretbox
 golang.org/x/crypto/internal/subtle
