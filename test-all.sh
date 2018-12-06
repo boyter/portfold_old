@@ -15,6 +15,9 @@ echo "Running unit tests..."
 # If this process fails we want this to exit which is what || achieves
 go test ./... || exit
 
+echo "Running integration tests..."
+go test -tags=integration ./... || exit
+
 echo "Building application and starting..."
 # Build the application and start it with all output redirected to /dev/null so we don't see it and
 # then use & to fork the process off into the background.
@@ -48,11 +51,11 @@ do
     ((cnt++))
 done
 
-echo "Running integration tests..."
+echo "Running HTTP tests..."
 
 # Important to have -count=1 so the tests always run at least once
 # We also set -tags to run integration tests
-if go test -count=1 -tags=integration ./... ; then
+if go test -count=1 -tags=http ./... ; then
     echo -e ""
 	echo -e "${GREEN}--------- ALL TESTS PASSED ---------"
 else

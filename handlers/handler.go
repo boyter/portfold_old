@@ -6,7 +6,6 @@ import (
 	"net/http"
 )
 
-
 func (app *Application) LoginForm(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Show the login form here"))
 }

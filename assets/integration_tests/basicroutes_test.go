@@ -1,4 +1,4 @@
-// +build integration
+// +build http
 
 package integration_tests
 
