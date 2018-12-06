@@ -23,15 +23,26 @@ func (app *Application) Routes() *mux.Router {
 	// It is good practice to create a new one to avoid the default global one
 	// being polluted by imports
 	router := mux.NewRouter()
-	router.Handle("/", http.HandlerFunc(app.Home))
-	router.Handle("/help/", http.HandlerFunc(app.Help))
-	router.Handle("/health-check/", http.HandlerFunc(app.HealthCheck))
+	router.Handle("/", http.HandlerFunc(app.Home)).Methods("GET")
+	router.Handle("/help/", http.HandlerFunc(app.Help)).Methods("GET")
+	router.Handle("/health-check/", http.HandlerFunc(app.HealthCheck)).Methods("GET")
+
+	// User login
+	router.Handle("/user/login/", http.HandlerFunc(app.LoginForm)).Methods("GET")
+	router.Handle("/user/login/", http.HandlerFunc(app.LoginUser)).Methods("POST")
 
 	// Setup to serve files from the supplied directory
 	fileServer := http.FileServer(http.Dir("./assets/ui/static/"))
 	router.PathPrefix("/static/").Handler(http.StripPrefix("/static", fileServer))
 
 	return router
+}
+
+func (app *Application) LoginForm(w http.ResponseWriter, r *http.Request) {
+	w.Write([]byte("Show the login form here"))
+}
+
+func (app *Application) LoginUser(w http.ResponseWriter, r *http.Request) {
 }
 
 // Define a home handler function which writes a byte slice containing
