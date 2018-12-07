@@ -6,6 +6,7 @@ import (
 )
 
 var ErrNoRecord = errors.New("data: no matching record found")
+var ErrDuplicateEmail = errors.New("data: duplicate email")
 
 type Project struct {
 	Id      int
