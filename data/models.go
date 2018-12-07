@@ -13,3 +13,13 @@ type Project struct {
 	Created time.Time
 	Updated time.Time
 }
+
+type Account struct {
+	Id      int
+	Name    string
+	Email   string
+	Created time.Time
+	Updated time.Time
+	Active  bool
+	Details string
+}
