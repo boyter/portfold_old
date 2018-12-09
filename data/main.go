@@ -7,7 +7,8 @@ import (
 
 func ConnectDb() (*sql.DB, error) {
 	// Connect to the database
-	db, err := openDb("root:@tcp(localhost:3306)/portfold?autocommit=true")
+	// parseTime is required to ensure that DATETIME to time.Time conversions work in SQL mapper
+	db, err := openDb("root:@tcp(localhost:3306)/portfold?autocommit=true&parseTime=true")
 	if err != nil {
 		return nil, err
 	}
