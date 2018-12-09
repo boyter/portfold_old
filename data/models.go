@@ -2,6 +2,7 @@ package data
 
 import (
 	"errors"
+	"golang.org/x/crypto/bcrypt"
 	"time"
 )
 
@@ -35,4 +36,15 @@ type User struct {
 	Created        time.Time
 	Updated        time.Time
 	Active         bool
+}
+
+func (u *User) HashPassword(password string) error {
+	hashedPassword, err := bcrypt.GenerateFromPassword([]byte(password), 12)
+
+	if err != nil {
+		return err
+	}
+
+	u.HashedPassword = hashedPassword
+	return nil
 }
