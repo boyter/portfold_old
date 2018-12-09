@@ -24,3 +24,15 @@ type Account struct {
 	Active  bool
 	Details string
 }
+
+type User struct {
+	Id             int
+	AccountId      int
+	Name           string
+	Email          string
+	HashedPassword []byte
+	UserType       int
+	Created        time.Time
+	Updated        time.Time
+	Active         bool
+}

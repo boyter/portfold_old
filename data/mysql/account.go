@@ -33,7 +33,7 @@ func (m *AccountModel) Insert(account data.Account) (*data.Account, error) {
 	}
 
 	// NB potentially an overflow issue here
-	acc, err := m.GetAccount(int(lastId))
+	acc, err := m.Get(int(lastId))
 	if err != nil {
 		return nil, err
 	}
@@ -41,7 +41,7 @@ func (m *AccountModel) Insert(account data.Account) (*data.Account, error) {
 	return acc, nil
 }
 
-func (m *AccountModel) GetAccount(id int) (*data.Account, error) {
+func (m *AccountModel) Get(id int) (*data.Account, error) {
 	stmt := `
 		SELECT	id,
              	name,

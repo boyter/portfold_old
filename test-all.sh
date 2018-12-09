@@ -9,7 +9,7 @@ NC='\033[0m' # no colour
 pkill portfold
 
 echo "Running go fmt..."
-go fmt ./...
+go fmt ./... || exit
 
 echo "Running unit tests..."
 # If this process fails we want this to exit which is what || achieves

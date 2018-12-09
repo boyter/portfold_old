@@ -9,7 +9,7 @@ import (
 
 func TestAccountGet(t *testing.T) {
 	accountModel := AccountModel{DB: connect(t)}
-	_, err := accountModel.GetAccount(2147483647)
+	_, err := accountModel.Get(2147483647)
 
 	if err.Error() != "data: no matching record found" {
 		t.Error("Expected to get no matching record")
@@ -28,9 +28,8 @@ func TestAccountInsertDelete(t *testing.T) {
 		t.Error(err.Error())
 	}
 
-	accountModel.GetAccount(account.Id)
 	accountModel.Delete(*account)
-	_, err = accountModel.GetAccount(account.Id)
+	_, err = accountModel.Get(account.Id)
 
 	if err.Error() != "data: no matching record found" {
 		t.Error("Expected to get no matching record")
