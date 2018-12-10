@@ -4,7 +4,6 @@ package mysql
 
 import (
 	"boyter/portfold/data"
-	"golang.org/x/crypto/bcrypt"
 	"testing"
 )
 
@@ -29,15 +28,16 @@ func TestUserInsertDelete(t *testing.T) {
 		t.Error(err.Error())
 	}
 
-	hashedPassword, _ := bcrypt.GenerateFromPassword([]byte("password"), 12)
-
 	userModel := UserModel{DB: connect(t)}
-	user, err := userModel.Insert(data.User{
-		AccountId:      account.Id,
-		Name:           "test user",
-		Email:          "test@example.com",
-		HashedPassword: hashedPassword,
-	})
+
+	zeuser := data.User{
+		AccountId: account.Id,
+		Name:      "test user",
+		Email:     "test@example.com",
+	}
+	zeuser.HashPassword("password")
+
+	user, err := userModel.Insert(zeuser)
 
 	if err != nil {
 		t.Error(err.Error())
