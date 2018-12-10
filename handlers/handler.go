@@ -11,7 +11,7 @@ func (app *Application) LoginForm(w http.ResponseWriter, r *http.Request) {
 }
 
 func (app *Application) LoginUser(w http.ResponseWriter, r *http.Request) {
-	form := forms.New(r.PostForm)
+	form := forms.NewForm(r.PostForm)
 
 	form.Required("username", "password")
 
