@@ -30,8 +30,8 @@ type Form struct {
 
 func NewForm(data url.Values) *Form {
 	return &Form{
-		data,
-		errors(map[string][]string{}),
+		Values: data,
+		Errors: errors(map[string][]string{}),
 	}
 }
 
