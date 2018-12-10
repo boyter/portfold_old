@@ -16,6 +16,22 @@ func TestUserGet(t *testing.T) {
 	}
 }
 
+func TestUserInsertNoAccountForeignKeyCheck(t *testing.T) {
+	userModel := UserModel{DB: connect(t)}
+
+	user := data.User{
+		AccountId: 99999999,
+		Name:      "test user",
+		Email:     "test@example.com",
+	}
+
+	_, err := userModel.Insert(user)
+
+	if err == nil {
+		t.Error("Expecting error")
+	}
+}
+
 func TestUserInsertDelete(t *testing.T) {
 	accountModel := AccountModel{DB: connect(t)}
 	account, err := accountModel.Insert(data.Account{
