@@ -11,5 +11,4 @@ func TestUserHash(t *testing.T) {
 	if user.HashedPassword == nil {
 		t.Error("Password should now be hashed")
 	}
-
 }
