@@ -10,7 +10,28 @@ type ProjectModel struct {
 }
 
 func (m *ProjectModel) Insert(project data.Project) (*data.Project, error) {
-	return nil, nil
+	stmt := `
+		INSERT INTO project(id, name, created, updated) 
+		VALUES (NULL, ?, UTC_TIMESTAMP(), UTC_TIMESTAMP())
+	`
+
+	res, err := m.DB.Exec(stmt, project.Name)
+	if err != nil {
+		return nil, err
+	}
+
+	lastId, err := res.LastInsertId()
+	if err != nil {
+		return nil, err
+	}
+
+	// NB potentially an overflow issue here
+	usr, err := m.Get(int(lastId))
+	if err != nil {
+		return nil, err
+	}
+
+	return usr, nil
 }
 
 func (m *ProjectModel) GetPaged(userId int, offset int, perPage int) ([]*data.Project, error) {
