@@ -32,4 +32,6 @@ func TestProjectInsertGet(t *testing.T) {
 	if project.Id != zeproject.Id {
 		t.Error("Expected id to match")
 	}
+
+	projectModel.Delete(*project)
 }

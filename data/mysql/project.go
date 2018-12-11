@@ -9,6 +9,13 @@ type ProjectModel struct {
 	DB *sql.DB
 }
 
+func (m *ProjectModel) Delete(project data.Project) error {
+	stmt := `DELETE FROM	project 
+				   WHERE 	id = ?`
+	_, err := m.DB.Exec(stmt, project.Id)
+	return err
+}
+
 func (m *ProjectModel) Insert(project data.Project) (*data.Project, error) {
 	stmt := `
 		INSERT INTO project(id, name, created, updated) 
@@ -42,10 +49,10 @@ func (m *ProjectModel) GetPaged(userId int, offset int, perPage int) ([]*data.Pr
 				updated
 		FROM	project
 		ORDER BY updated, id DESC
-		LIMIT 10
+		LIMIT ?, ?
 `
 
-	rows, err := m.DB.Query(stmt)
+	rows, err := m.DB.Query(stmt, offset, perPage)
 	if err != nil {
 		return nil, err
 	}

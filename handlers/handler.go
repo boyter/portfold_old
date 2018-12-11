@@ -58,7 +58,7 @@ func (app *Application) Home(w http.ResponseWriter, r *http.Request) {
 
 	// TODO remove this just testing
 	project, _ := app.ProjectModel.Get(1)
-	projects, _ := app.ProjectModel.GetPaged(0, 0, 0)
+	projects, _ := app.ProjectModel.GetPaged(0, 0, 10)
 
 	// We then use the Execute() method on the template set to write the template
 	// content as the response body. The last parameter to Execute() represents any
